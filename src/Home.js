@@ -58,3 +58,32 @@ const Home = ({ data: { loading, error, posts, postsConnection, networkStatus },
     }
   }
 `
+
+export const postsQueryVars = {
+    skip: 0,
+    first: POSTS_PER_PAGE
+  }
+  
+  export default graphql(posts, {
+    options: {
+      variables: postsQueryVars
+    },
+    props: ({ data }) => ({
+      data,
+      loadMorePosts: () => {
+        return data.fetchMore({
+          variables: {
+            skip: data.posts.length
+          },
+          updateQuery: (previousResult, { fetchMoreResult }) => {
+            if (!fetchMoreResult) {
+              return previousResult
+            }
+            return Object.assign({}, previousResult, {
+              posts: [...previousResult.posts, ...fetchMoreResult.posts]
+            })
+          }
+        })
+      }
+    })
+  })(Home)
