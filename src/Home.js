@@ -39,3 +39,22 @@ const Home = ({ data: { loading, error, posts, postsConnection, networkStatus },
     }
     return <h2>Loading posts...</h2>
   }
+
+  export const posts = gql`
+  query posts($first: Int!, $skip: Int!) {
+    posts(orderBy: dateAndTime_DESC, first: $first, skip: $skip) {
+      id
+      slug
+      title
+      dateAndTime
+      coverImage {
+        handle
+      }
+    },
+    postsConnection {
+      aggregate {
+        count
+      }
+    }
+  }
+`
