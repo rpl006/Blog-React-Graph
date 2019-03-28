@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 export default () => (
   <header className='Header-header'>
-    <h1 className='Header-h1'>GraphCMS Starter blog</h1>
+    <h1 className='Header-h1'>Starter blog by Ramboos</h1>
     <nav className='Header-nav'>
       <NavLink
         exact to='/'
